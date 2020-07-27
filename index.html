@@ -1,0 +1,42 @@
+<!doctype html>
+<html>
+    <head>
+        <title>Socket.IO Example</title>
+        <style media="screen">
+         .circle {
+           display: block;
+           width: 20em;
+           height: 20em;
+           background: black;
+           text-align: center;
+           color: white;
+         }
+        </style>
+    </head>
+    <body>
+      <div class="circle"></div>
+        <script src="/socket.io/socket.io.js"></script>
+        <script>
+            var text;
+            var socket = io();
+
+ //on receiving 'sendToClient event (sent) from from server run the given callback'
+ //i.e. listen to 'sendToClientEvent' from server
+      socket.on('sendToClient', function (data) {
+            text = data.hello;
+            console.log(data);
+            console.log(text);
+            var c = document.querySelector(".circle");
+            c.textContent = text;
+
+ //send a socket event to server wuth some data
+            socket.emit('receivedFromClient', { my: "any data" });
+         });
+
+
+        </script>
+        <script type="text/javascript">
+
+        </script>
+    </body>
+</html>
